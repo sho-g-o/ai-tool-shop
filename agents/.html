@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>NEXT-GATE | AI Anime Agent</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&family=Noto+Sans+JP:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #000000;
+            --accent-blue: #00f2ff;
+            --accent-pink: #ff00ff;
+            --text-main: #ffffff;
+            --text-dim: #a0a0a0;
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Inter', 'Noto Sans JP', sans-serif;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Cyber Grid Background */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(0, 242, 255, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 242, 255, 0.05) 1px, transparent 1px);
+            background-size: 50px 50px;
+            z-index: -1;
+        }
+
+        /* Header */
+        header {
+            padding: 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--glass-border);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .shop-name {
+            font-weight: 900;
+            letter-spacing: 2px;
+            font-size: 1.2rem;
+            color: var(--text-main);
+        }
+
+        .shop-name span {
+            color: var(--accent-blue);
+            text-shadow: 0 0 10px var(--accent-blue);
+        }
+
+        /* Hero Section */
+        .hero {
+            height: 80vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 1rem;
+            position: relative;
+        }
+
+        .hero::after {
+            content: "";
+            position: absolute;
+            width: 300px;
+            height: 300px;
+            background: var(--accent-pink);
+            filter: blur(150px);
+            opacity: 0.2;
+            z-index: -1;
+        }
+
+        .agent-title {
+            font-size: clamp(2rem, 8vw, 5rem);
+            font-weight: 900;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+            background: linear-gradient(90deg, var(--accent-blue), var(--accent-pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 15px rgba(0, 242, 255, 0.3));
+        }
+
+        .hero-sub {
+            font-size: 1.2rem;
+            color: var(--text-dim);
+            max-width: 700px;
+            margin-bottom: 3rem;
+        }
+
+        /* Feature Section */
+        .features {
+            padding: 5rem 2rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            padding: 2.5rem;
+            border-radius: 4px;
+            backdrop-filter: blur(15px);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            border-color: var(--accent-blue);
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 242, 255, 0.1);
+        }
+
+        .card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 2px;
+            height: 0;
+            background: var(--accent-blue);
+            transition: 0.5s;
+        }
+
+        .card:hover::before {
+            height: 100%;
+        }
+
+        .card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--accent-blue);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card p {
+            color: var(--text-dim);
+            font-size: 0.95rem;
+            margin-bottom: 1rem;
+        }
+
+        .tag-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 1rem;
+        }
+
+        .tag {
+            font-size: 0.7rem;
+            padding: 4px 10px;
+            border: 1px solid var(--glass-border);
+            border-radius: 100px;
+            color: var(--accent-pink);
+            text-transform: uppercase;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 10rem 2rem;
+            text-align: center;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 1.5rem 4rem;
+            font-size: 1.5rem;
+            font-weight: 900;
+            text-decoration: none;
+            color: #000;
+            background: var(--accent-blue);
+            border-radius: 4px;
+            letter-spacing: 4px;
+            position: relative;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 20px rgba(0, 242, 255, 0.4);
+        }
+
+        .cta-button:hover {
+            background: #fff;
+            box-shadow: 0 0 40px rgba(0, 242, 255, 0.8);
+            transform: scale(1.05);
+        }
+
+        .cta-sub {
+            margin-top: 2rem;
+            font-size: 0.9rem;
+            color: var(--text-dim);
+            letter-spacing: 2px;
+        }
+
+        /* Footer */
+        footer {
+            padding: 4rem 2rem;
+            text-align: center;
+            border-top: 1px solid var(--glass-border);
+            font-size: 0.8rem;
+            color: var(--text-dim);
+        }
+
+        /* Animations */
+        @keyframes scan {
+            0% { transform: translateY(-100%); }
+            100% { transform: translateY(100%); }
+        }
+
+        .scanline {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: rgba(0, 242, 255, 0.1);
+            z-index: 1000;
+            pointer-events: none;
+            animation: scan 4s linear infinite;
+        }
+
+        @media (max-width: 768px) {
+            .hero { height: auto; padding: 100px 20px; }
+            .agent-title { font-size: 2.5rem; }
+            .cta-button { padding: 1.2rem 2rem; font-size: 1.2rem; width: 100%; }
+        }
+    </style>
+</head>
+<body>
+    <div class="scanline"></div>
+
+    <header>
+        <div class="shop-name">AI TOOL <span>SHOP</span></div>
+        <div style="font-size: 0.7rem; letter-spacing: 1px; color: var(--accent-blue);">STATUS: OPERATIONAL</div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <p style="color: var(--accent-blue); font-weight: 700; letter-spacing: 5px; margin-bottom: 1rem;">AGENT: ID_NEXT-GATE</p>
+            <h1 class="agent-title">アニメ・ロス<br>救済執行官</h1>
+            <p class="hero-sub">
+                面白いアニメを完走した後の「虚脱感（ロス）」を、次に没頭すべき「新たな神作」への期待感に変える。全ジャンルを網羅した目利きが、あなたの魂を次に捧げるべき作品を特定します。
+            </p>
+        </section>
+
+        <section class="features">
+            <div class="card">
+                <h3><span>01</span> ロス分析</h3>
+                <p>あなたが感じている虚脱感の正体を解明します。それが「戦略的バトル」への飢えなのか、「重厚な人間ドラマ」への渇望なのか。感情の深淵まで潜り込み、言語化します。</p>
+                <div class="tag-list">
+                    <span class="tag">Loss Analysis</span>
+                    <span class="tag">Insight</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3><span>02</span> 嗜好マッピング</h3>
+                <p>過去の視聴データ（進撃、HUNTER×HUNTER、カイジ等）から、あなたの「琴線」をマッピング。「知略・成長・極限状態」など、無意識に求めている要素を特定します。</p>
+                <div class="tag-list">
+                    <span class="tag">Preference Mapping</span>
+                    <span class="tag">Logic</span>
+                </div>
+            </div>
+
+            <div class="card">
+                <h3><span>03</span> 特選処方箋</h3>
+                <p>なぜその作品が「ロスを埋められるのか」。王道の熱量、心理戦、世界観の裏切りを併せ持つ3作を厳選。あなたの「まだ知らない可能性」を広げるロジカルな推薦を提示します。</p>
+                <div class="tag-list">
+                    <span class="tag">Selection</span>
+                    <span class="tag">Prescription</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="cta-section">
+            <p style="margin-bottom: 2rem; letter-spacing: 3px; font-weight: 300;">Ready to find your next obsession?</p>
+            <a href="https://gemini.google.com/gem/17gieyngUKyyhHth7re4IB22Rj4-T2RUA?usp=sharing" class="cta-button" target="_blank">ACTIVATE AGENT</a>
+            <p class="cta-sub">エージェントを起動して診断を開始する</p>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 AI TOOL SHOP // NEXT-GATE SYSTEM DEVELOPMENT UNIT</p>
+        <p style="margin-top: 10px; color: var(--accent-pink); opacity: 0.5;">NO RECOVERY WITHOUT SACRIFICE.</p>
+    </footer>
+</body>
+</html>

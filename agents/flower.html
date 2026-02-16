@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Agent "flower" | AI TOOL SHOP</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #000000;
+            --accent-blue: #00f2ff;
+            --accent-pink: #ff00ff;
+            --text-main: #ffffff;
+            --text-dim: #a0a0a0;
+            --glass-bg: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            background-image: 
+                linear-gradient(rgba(0, 242, 255, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 242, 255, 0.05) 1px, transparent 1px);
+            background-size: 50px 50px;
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            padding: 30px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--glass-border);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            font-weight: 900;
+            letter-spacing: 2px;
+            font-size: 1.2rem;
+            text-transform: uppercase;
+        }
+
+        .logo span {
+            color: var(--accent-blue);
+            text-shadow: 0 0 10px var(--accent-blue);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 120px 0 80px;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 300px;
+            height: 300px;
+            background: var(--accent-pink);
+            filter: blur(150px);
+            opacity: 0.2;
+            z-index: -1;
+        }
+
+        .agent-name {
+            font-size: 5rem;
+            font-weight: 900;
+            text-transform: uppercase;
+            margin-bottom: 10px;
+            background: linear-gradient(to right, var(--accent-blue), var(--accent-pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            filter: drop-shadow(0 0 15px rgba(0, 242, 255, 0.5));
+        }
+
+        .hero-tagline {
+            font-size: 1.5rem;
+            color: var(--text-main);
+            margin-bottom: 20px;
+            letter-spacing: 4px;
+            text-transform: uppercase;
+        }
+
+        .hero-description {
+            max-width: 700px;
+            margin: 0 auto 40px;
+            color: var(--text-dim);
+            font-size: 1.1rem;
+        }
+
+        /* Features */
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            padding: 60px 0;
+        }
+
+        .card {
+            background: var(--glass-bg);
+            border: 1px solid var(--glass-border);
+            padding: 40px;
+            border-radius: 5px;
+            backdrop-filter: blur(20px);
+            transition: transform 0.3s ease, border-color 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            border-color: var(--accent-blue);
+        }
+
+        .card::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, var(--accent-blue), transparent);
+            transform: translateX(-100%);
+            transition: 0.5s;
+        }
+
+        .card:hover::after {
+            transform: translateX(100%);
+        }
+
+        .card-icon {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            display: block;
+        }
+
+        .card-title {
+            font-size: 1.5rem;
+            margin-bottom: 15px;
+            color: var(--accent-blue);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .card-text {
+            color: var(--text-dim);
+            font-size: 0.95rem;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 100px 0;
+            text-align: center;
+        }
+
+        .cta-button {
+            display: inline-block;
+            padding: 25px 60px;
+            font-size: 1.5rem;
+            font-weight: 900;
+            text-decoration: none;
+            color: #000;
+            background: var(--accent-blue);
+            border-radius: 2px;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            position: relative;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 30px rgba(0, 242, 255, 0.4);
+        }
+
+        .cta-button:hover {
+            background: #fff;
+            box-shadow: 0 0 50px rgba(0, 242, 255, 0.8);
+            transform: scale(1.05);
+        }
+
+        .disclaimer {
+            margin-top: 40px;
+            font-size: 0.8rem;
+            color: var(--text-dim);
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Footer */
+        footer {
+            padding: 60px 0;
+            text-align: center;
+            border-top: 1px solid var(--glass-border);
+            font-size: 0.8rem;
+            color: var(--text-dim);
+            letter-spacing: 2px;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .agent-name { font-size: 3rem; }
+            .hero-tagline { font-size: 1.1rem; }
+            .cta-button { padding: 20px 30px; font-size: 1.2rem; width: 100%; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="container" style="display:flex; justify-content: space-between; width:100%;">
+            <div class="logo">AI <span>TOOL</span> SHOP</div>
+            <div style="font-size: 0.8rem; border: 1px solid var(--accent-blue); padding: 2px 10px; color: var(--accent-blue);">VER 2.0.4 - ACTIVE</div>
+        </div>
+    </header>
+
+    <main class="container">
+        <section class="hero">
+            <h1 class="agent-name">flower</h1>
+            <p class="hero-tagline">Pollen Buster Strategist</p>
+            <p class="hero-description">
+                憂鬱な花粉シーズンを「データと対策」で攻略。常に冷静沈着、かつユーザーの体調を最優先に考える軍師。
+                「敵を知り、己を知れば百戦危うからず」を信条に、あなたのQOLを死守します。
+            </p>
+        </section>
+
+        <section class="features">
+            <div class="card">
+                <span class="card-icon">🛡️</span>
+                <h2 class="card-title">【防衛】DEFENSE</h2>
+                <p class="card-text">
+                    現在の飛散量予測に基づき、外出時の装備や帰宅時のルーティンを精密に指示。物理的接触を遮断する最適なプロトコルを立案します。
+                </p>
+            </div>
+            <div class="card">
+                <span class="card-icon">⚔️</span>
+                <h2 class="card-title">【攻撃】ATTACK</h2>
+                <p class="card-text">
+                    症状に合わせた推奨医薬品（OTC）の情報や、医療機関受診のタイミングをアドバイス。内部からの兵站管理を徹底します。
+                </p>
+            </div>
+            <div class="card">
+                <span class="card-icon">🏠</span>
+                <h2 class="card-title">【聖域】SANCTUARY</h2>
+                <p class="card-text">
+                    居住空間から花粉を徹底排除。最新のガジェットや家電活用術を駆使し、あなたが唯一安らげる「非武装地帯」を構築します。
+                </p>
+            </div>
+        </section>
+
+        <section class="cta-section">
+            <a href="https://gemini.google.com/gem/1Bs0rw2QudKuGEhN52HvFg51J7ug4dIpu?usp=sharing" class="cta-button" target="_blank">
+                ACTIVATE AGENT
+            </a>
+            <div class="disclaimer">
+                ※提供される情報は一般的な対策であり、医学的診断に代わるものではありません。重度の症状がある場合は、必ず専門医の診断を受けてください。
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            &copy; 2124 AI TOOL SHOP. NEURAL INTERFACE READY.
+        </div>
+    </footer>
+
+</body>
+</html>

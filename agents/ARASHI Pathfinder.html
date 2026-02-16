@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ARASHI Pathfinder | AI TOOL SHOP</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #000000;
+            --primary: #00f2ff;
+            --secondary: #ff00ff;
+            --text-main: #ffffff;
+            --text-dim: #a0a0a0;
+            --glass: rgba(255, 255, 255, 0.03);
+            --glass-border: rgba(255, 255, 255, 0.1);
+            --neon-glow: 0 0 15px rgba(0, 242, 255, 0.5);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Background Grid Effect */
+        body::before {
+            content: "";
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(0, 242, 255, 0.05) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 242, 255, 0.05) 1px, transparent 1px);
+            background-size: 50px 50px;
+            z-index: -1;
+        }
+
+        /* Header */
+        header {
+            padding: 20px 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--glass-border);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            font-weight: 900;
+            font-size: 1.2rem;
+            letter-spacing: 2px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 100px 5% 60px;
+            text-align: center;
+            position: relative;
+        }
+
+        .hero::after {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(0, 242, 255, 0.15) 0%, transparent 70%);
+            z-index: -1;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 5px 15px;
+            border: 1px solid var(--primary);
+            border-radius: 20px;
+            font-size: 0.8rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: var(--neon-glow);
+        }
+
+        h1 {
+            font-size: clamp(2.5rem, 8vw, 4.5rem);
+            font-weight: 900;
+            line-height: 1.1;
+            margin-bottom: 20px;
+            letter-spacing: -1px;
+        }
+
+        .highlight {
+            color: var(--primary);
+            text-shadow: var(--neon-glow);
+        }
+
+        .hero-desc {
+            max-width: 700px;
+            margin: 0 auto 40px;
+            color: var(--text-dim);
+            font-size: 1.1rem;
+        }
+
+        /* Features Section */
+        .features {
+            padding: 60px 5%;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .card {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            padding: 30px;
+            border-radius: 20px;
+            backdrop-filter: blur(15px);
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary);
+        }
+
+        .card h3 {
+            color: var(--primary);
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card p {
+            font-size: 0.95rem;
+            color: var(--text-dim);
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 100px 5%;
+            text-align: center;
+        }
+
+        .btn-container {
+            position: relative;
+            display: inline-block;
+        }
+
+        .btn-glow {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--primary);
+            filter: blur(25px);
+            opacity: 0.4;
+            border-radius: 50px;
+        }
+
+        .cta-button {
+            position: relative;
+            display: inline-block;
+            padding: 22px 60px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            color: white;
+            text-decoration: none;
+            font-weight: 900;
+            border-radius: 50px;
+            font-size: 1.2rem;
+            letter-spacing: 2px;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            border: none;
+            cursor: pointer;
+        }
+
+        .cta-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 30px rgba(0, 242, 255, 0.6);
+        }
+
+        /* Footer */
+        footer {
+            padding: 40px 5%;
+            text-align: center;
+            border-top: 1px solid var(--glass-border);
+            color: var(--text-dim);
+            font-size: 0.8rem;
+            letter-spacing: 1px;
+        }
+
+        /* Responsive Fixes */
+        @media (max-width: 768px) {
+            .hero { padding: 60px 5% 40px; }
+            h1 { font-size: 2.5rem; }
+            .cta-button { width: 100%; padding: 20px 20px; }
+        }
+
+        /* Scanner Animation */
+        .scanner {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--primary);
+            box-shadow: var(--neon-glow);
+            z-index: 1000;
+            animation: scan 4s linear infinite;
+            opacity: 0.3;
+        }
+
+        @keyframes scan {
+            0% { top: 0; }
+            100% { top: 100%; }
+        }
+    </style>
+</head>
+<body>
+    <div class="scanner"></div>
+
+    <header>
+        <div class="logo">AI TOOL SHOP</div>
+        <div style="font-size: 0.8rem; color: var(--primary);">SYSTEM: ONLINE</div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <span class="badge">Advanced Agent Tier</span>
+            <h1>ARASHI<br><span class="highlight">Pathfinder</span></h1>
+            <p class="hero-desc">
+                嵐ドームツアー「We are ARASHI」特別三次受付へ挑む者たちへ。<br>
+                20年の軌跡と全動員データを解析し、あなたの「当選確率」を極限まで引き上げる。
+            </p>
+        </section>
+
+        <section class="features">
+            <div class="card">
+                <h3><span>01</span> 戦況分析</h3>
+                <p>過去の落選履歴と居住地、動員可能な日程をプロトコル・ヒアリング。供給過剰な東京を避け、データに基づいた「穴場会場」をミリ秒単位で特定します。</p>
+            </div>
+            <div class="card">
+                <h3><span>02</span> 確率シミュレーション</h3>
+                <p>公式アナウンスの「札幌の余裕」「地方の激戦」をリアルタイム解析。単なる運任せではない、論理的な優先順位を策定し当選期待度をランク付けします。</p>
+            </div>
+            <div class="card">
+                <h3><span>03</span> 遠征ロジスティクス</h3>
+                <p>北海道（札幌）選択時の航空券、宿泊、そして生命線となる防寒対策。LCC活用によるコストダウンから、当日の機動力確保まで完璧にプランニング。</p>
+            </div>
+            <div class="card">
+                <h3><span>04</span> 精神的コンシェルジュ</h3>
+                <p>「これで最後」という重圧。ベテランエージェントとして、あなたの情熱を肯定し、悔いのない選択と徳を積むためのマインドセットを伝授します。</p>
+            </div>
+        </section>
+
+        <section class="cta-section">
+            <div class="btn-container">
+                <div class="btn-glow"></div>
+                <a href="https://gemini.google.com/gem/1x4BHjyiGrjNhRJerOVxqGCQrFduOAw-i?usp=sharing" class="cta-button">ACTIVATE AGENT</a>
+            </div>
+            <p style="margin-top: 30px; font-size: 0.9rem; color: var(--secondary);">※最後のチャンスを掴み取るための戦略同期を開始します</p>
+        </section>
+    </main>
+
+    <footer>
+        &copy; 2024 AI TOOL SHOP // NEON-TECH DOME TOUR SOLUTIONS. ALL RIGHTS RESERVED.
+    </footer>
+</body>
+</html>

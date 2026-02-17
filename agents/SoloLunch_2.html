@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SoloLunch_2 | AI AGENT</title>
+
+    <meta property="og:title" content="SoloLunch_2">
+    <meta property="og:description" content="午後の生存確率を最大化せよ">
+    <meta name="twitter:card" content="summary_large_image">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;500;700&family=Zen+Kaku+Gothic+New:wght@400;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* 背景は維持 */
+        body {
+            margin: 0; padding: 0;
+            font-family: 'Outfit', 'Zen Kaku Gothic New', sans-serif;
+            min-height: 100vh;
+            display: flex; justify-content: center; align-items: center;
+            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+            background-size: 400% 400%; animation: gradientBG 15s ease infinite;
+            color: #1d1d1f;
+        }
+
+        @keyframes gradientBG { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+
+        /* X用オーバーレイ（ここも確実に表示） */
+        #in-app-overlay {
+            display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85);
+            backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+            z-index: 9999; color: white; padding: 20px;
+            flex-direction: column; align-items: center; justify-content: center;
+        }
+        .guide-box { background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2); padding: 30px 20px; border-radius: 28px; width: 90%; max-width: 320px; text-align: center; }
+
+        /* --- メインカード（確実に表示させるための修正） --- */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.8); /* 透明度を少し下げて確実に見えるように */
+            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            border-radius: 30px; 
+            padding: 40px 30px; 
+            width: 85%; 
+            max-width: 380px;
+            min-height: 300px; /* 中身がなくても形を維持 */
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border: 1px solid rgba(255, 255, 255, 0.5);
+            /* アニメーションを一旦削除して即時表示 */
+            position: relative;
+            z-index: 10;
+        }
+
+        h1 { font-size: 2.2rem; margin: 10px 0; color: #000; line-height: 1.2; }
+        .catch { color: #2563eb; font-weight: 700; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 8px; display: block; }
+        .desc { font-size: 0.95rem; line-height: 1.6; color: #4b5563; margin: 20px 0 30px; }
+        
+        .btn { 
+            background: #000; color: #fff; text-decoration: none; padding: 16px 0; 
+            border-radius: 14px; display: block; width: 100%; font-weight: 600; 
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+    </style>
+</head>
+<body>
+
+    <div id="in-app-overlay">
+        <div class="guide-box">
+            <p style="font-weight:bold;">ブラウザで開き直してください</p>
+            <p style="font-size:13px; opacity:0.8;">画面の「下」または「右上」のボタンから<br>「ブラウザで開く」を選択してください。</p>
+            <button onclick="document.getElementById('in-app-overlay').style.display='none'" style="background:none; border:none; color:white; text-decoration:underline; margin-top:20px; cursor:pointer;">案内を閉じる</button>
+        </div>
+    </div>
+
+    <div class="glass-card">
+        <span class="catch">午後の生存確率を最大化せよ</span>
+        <h1>SoloLunch_2</h1>
+        <p class="desc">付き合いランチの同調圧力から貴官を解放し、静寂を聖域に変える戦略。</p>
+        
+        <a href="https://gemini.google.com/gem/1sUpc0qddvnxjNM3djxBFOYX-BVLugVKX?usp=sharing" target="_blank" rel="noopener noreferrer" class="btn">
+            Launch Agent
+        </a>
+    </div>
+
+    <script>
+        // X判定
+        const ua = navigator.userAgent.toLowerCase();
+        if (ua.indexOf('twitter') !== -1 || ua.indexOf('twttr') !== -1) {
+            document.getElementById('in-app-overlay').style.display = 'flex';
+        }
+    </script>
+</body>
+</html>
